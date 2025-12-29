@@ -9,7 +9,7 @@ export default function ListPage() {
     // 使用 CSS Columns 实现简易瀑布流
     <div className="columns-1 sm:columns-2 gap-6 space-y-6">
       {posts.map((post) => (
-        <Link key={post.id} href={`/posts/${post.id}`} className="block break-inside-avoid">
+        <Link key={post.id} href={`/posts/${encodeURIComponent(post.id)}`} className="block break-inside-avoid">
           <div className="bg-gray-50 dark:bg-[#1e1e1e] p-6 rounded-sm hover:shadow-lg transition-shadow duration-300 border border-transparent dark:border-gray-800">
             <h2 className="text-xl font-bold text-ink dark:text-white mb-3">
               {post.title}

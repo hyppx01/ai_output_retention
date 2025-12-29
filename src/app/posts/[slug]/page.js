@@ -5,12 +5,14 @@ import ReactMarkdown from 'react-markdown';
 export async function generateStaticParams() {
   const posts = getSortedPostsData();
   return posts.map((post) => ({
-    slug: post.id,
+    slug: encodeURIComponent(post.id),
   }));
 }
 
 export default function Post({ params }) {
-  const post = getPostData(params.slug);
+  // 解码 URL 中的中文字符
+  const decodedSlug = decodeURIComponent(params.slug);
+  const post = getPostData(decodedSlug);
 
   return (
     <article className="prose prose-zinc dark:prose-invert max-w-none pb-24">
