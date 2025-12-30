@@ -2,6 +2,7 @@ import './globals.css';
 import { ThemeProvider } from './theme-provider';
 import Link from 'next/link';
 import ThemeToggle from '@/components/ThemeToggle';
+import SearchBox from '@/components/SearchBox';
 
 export const metadata = {
   title: 'AI Output Retention',
@@ -30,12 +31,12 @@ export default function RootLayout({ children }) {
           {/* 底部导航 */}
           <footer className="w-full py-2 pb-3 bg-white/90 dark:bg-[#121212]/90 backdrop-blur-sm fixed bottom-0 left-0 border-t border-gray-100 dark:border-gray-800 z-40">
             <nav className="flex justify-between items-center px-4 text-sm">
-              <span className="text-gray-400 dark:text-gray-500 w-16">©jclio</span>
+              <span className="text-gray-400 dark:text-gray-500">©jclio</span>
               <div className="flex gap-6 text-ink dark:text-gray-300">
                 <Link href="/" className="hover:underline underline-offset-2">首页</Link>
                 <Link href="/list" className="hover:underline underline-offset-2">列表</Link>
               </div>
-              <div className="w-16"></div>
+              <SearchBox />
             </nav>
           </footer>
 
