@@ -32,19 +32,21 @@ export default function SearchBox() {
 
   return (
     <div className="relative">
-      <div className="relative flex items-center">
-        <Search className="absolute left-2 w-4 h-4 text-gray-400" />
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => {
-            setQuery(e.target.value);
-            setIsOpen(true);
-          }}
-          onFocus={() => setIsOpen(true)}
-          placeholder=""
-          className="pl-8 pr-4 py-1.5 text-sm bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 w-40 transition-all duration-300 text-ink dark:text-gray-200 placeholder-gray-400"
-        />
+      <div className="flex items-center border-b border-gray-200 dark:border-gray-700 focus-within:border-gray-400">
+        <Search className="w-4 h-4 text-gray-400 flex-shrink-0" />
+        <div className="relative flex-1 ml-2">
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              setIsOpen(true);
+            }}
+            onFocus={() => setIsOpen(true)}
+            placeholder=""
+            className="w-full pr-4 py-1 text-sm bg-transparent focus:outline-none text-ink dark:text-gray-200 placeholder-gray-400"
+          />
+        </div>
       </div>
 
       {/* 搜索结果下拉框 */}
