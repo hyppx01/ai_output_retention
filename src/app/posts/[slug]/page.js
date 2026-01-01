@@ -6,7 +6,7 @@ import CopyPostButton from '@/components/CopyPostButton';
 export async function generateStaticParams() {
   const posts = getSortedPostsData();
   return posts.map((post) => ({
-    slug: encodeURIComponent(post.id),
+    slug: post.id, // 直接使用文件名，不进行编码
   }));
 }
 

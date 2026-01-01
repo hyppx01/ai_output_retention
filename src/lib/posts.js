@@ -51,22 +51,27 @@ export function getSortedPostsData() {
 }
 
 export function getPostData(id) {
-  // Decode the id - may be double-encoded due to how Next.js handles URL params
-  // with output: 'export' mode and Chinese filenames
-  let decodedId = id;
-  try {
-    // Try decoding once
-    decodedId = decodeURIComponent(id);
-    // If still contains encoded characters, decode again
-    if (decodedId.includes('%')) {
-      decodedId = decodeURIComponent(decodedId);
+  // Try to find the post file
+  // First, try with the original id (for new URLs without encoding)
+  let fullPath = path.join(postsDirectory, `${id}.md`);
+  
+  // If file doesn't exist, try decoding the id (for backward compatibility with old encoded URLs)
+  if (!fs.existsSync(fullPath)) {
+    try {
+      const decodedId = decodeURIComponent(id);
+      fullPath = path.join(postsDirectory, `${decodedId}.md`);
+      
+      // Try double decoding for edge cases
+      if (!fs.existsSync(fullPath) && decodedId.includes('%')) {
+        const doubleDecodedId = decodeURIComponent(decodedId);
+        fullPath = path.join(postsDirectory, `${doubleDecodedId}.md`);
+      }
+    } catch (e) {
+      // If decoding fails, use original id
+      fullPath = path.join(postsDirectory, `${id}.md`);
     }
-  } catch (e) {
-    // If decoding fails, use original id
-    decodedId = id;
   }
 
-  const fullPath = path.join(postsDirectory, `${decodedId}.md`);
   const fileContents = fs.readFileSync(fullPath, 'utf8');
   const matterResult = matter(fileContents);
 
